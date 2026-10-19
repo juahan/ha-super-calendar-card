@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calendar Week Card — fixture preview</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body[data-theme="light"] {
+        --ha-card-background: #ffffff;
+        --primary-text-color: #212121;
+        --secondary-text-color: rgba(0, 0, 0, 0.6);
+        --divider-color: rgba(0, 0, 0, 0.12);
+        --primary-color: #03a9f4;
+        --text-primary-color: #ffffff;
+        --error-color: #db4437;
+        --warning-color: #ff9800;
+        --page-bg: #f0f2f5;
+      }
+      body[data-theme="dark"] {
+        --ha-card-background: #1c1c1e;
+        --primary-text-color: #eaeaea;
+        --secondary-text-color: rgba(255, 255, 255, 0.65);
+        --divider-color: rgba(255, 255, 255, 0.14);
+        --primary-color: #03a9f4;
+        --text-primary-color: #ffffff;
+        --error-color: #f44336;
+        --warning-color: #ffb300;
+        --page-bg: #0f1115;
+      }
+      body {
+        margin: 0;
+        padding: 16px;
+        background: var(--page-bg);
+        color: var(--primary-text-color);
+        font-family: Roboto, Noto, sans-serif;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .note {
+        color: var(--secondary-text-color);
+        font-size: 13px;
+        max-width: 760px;
+        line-height: 1.5;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin: 12px 0 16px;
+      }
+      .controls label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        min-height: 44px;
+      }
+      .controls select,
+      .controls button {
+        min-height: 40px;
+        font: inherit;
+        border-radius: 8px;
+        border: 1px solid var(--divider-color);
+        background: var(--ha-card-background);
+        color: var(--primary-text-color);
+        padding: 4px 10px;
+      }
+      .controls button[aria-pressed="true"] {
+        background: var(--primary-color);
+        color: var(--text-primary-color);
+        border-color: transparent;
+      }
+      .stage-wrap {
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+      .stage {
+        width: 100%;
+        max-width: 100%;
+        transition: width 0.2s ease;
+      }
+      .editor-pane {
+        margin-top: 32px;
+        max-width: 760px;
+      }
+      .editor-pane h2 {
+        font-size: 16px;
+      }
+      #config-out {
+        background: var(--ha-card-background);
+        border: 1px solid var(--divider-color);
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 12px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <h1>Calendar Week Card — fixture preview</h1>
+    <p class="note">
+      All events below are local fixtures served by a mock Home Assistant calendar API
+      (<code>demo/mock-hass.js</code>). The production card never loads these fixtures and never
+      downloads ICS feeds: on a real dashboard it reads <code>calendar.*</code> entities through the
+      authenticated Home Assistant calendar API. Display timezone: <strong>Europe/Helsinki</strong>.
+    </p>
+
+    <div class="controls">
+      <label>
+        Arrangement
+        <select id="ctl-arrangement" data-testid="arrangement">
+          <option value="combined:calendar_top">combined · calendar above list</option>
+          <option value="combined:list_top">combined · list above calendar</option>
+          <option value="combined:side_by_side">combined · side by side</option>
+          <option value="calendar:calendar_top">calendar only</option>
+          <option value="upcoming:calendar_top">upcoming list only</option>
+        </select>
+      </label>
+      <label>
+        Calendar layout
+        <select id="ctl-layout" data-testid="calendar-layout">
+          <option value="auto">auto</option>
+          <option value="grid">grid</option>
+          <option value="agenda">agenda</option>
+        </select>
+      </label>
+      <label>Width</label>
+      <button id="w-375" data-testid="width-375">375 (mobile)</button>
+      <button id="w-768" data-testid="width-768">768 (tablet)</button>
+      <button id="w-1200" data-testid="width-1200">1200 (desktop)</button>
+      <label>
+        Theme
+        <select id="ctl-theme" data-testid="theme">
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="ctl-fail-work" data-testid="fail-work" />
+        Simulate a failing work calendar
+      </label>
+    </div>
+
+    <div class="stage-wrap">
+      <div class="stage" id="stage" data-testid="stage">
+        <div id="card-host"></div>
+      </div>
+    </div>
+
+    <div class="editor-pane">
+      <h2>Visual editor</h2>
+      <div id="editor-host"></div>
+      <h2>Emitted configuration</h2>
+      <pre id="config-out" data-testid="config-out"></pre>
+    </div>
+
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>

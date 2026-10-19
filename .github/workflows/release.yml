@@ -1,0 +1,36 @@
+name: Release
+
+# Builds the bundle and attaches it to a GitHub release when a version tag is
+# pushed. Nothing is published anywhere else; HACS catalog submission is a
+# separate, manual step.
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify
+        run: npm run verify
+
+      - name: Create GitHub release with bundle
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/calendar-week-card.js
+            dist/ha-super-calendar-card.js
+          generate_release_notes: true

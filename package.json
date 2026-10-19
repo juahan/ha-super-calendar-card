@@ -1,0 +1,61 @@
+{
+  "name": "calendar-week-card",
+  "version": "1.0.0",
+  "description": "Calendar Week Card — a multiweek calendar and upcoming-events dashboard card for Home Assistant (frontend-only, works with Remote Calendar).",
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "calendar",
+    "hacs"
+  ],
+  "license": "MIT",
+  "author": "Calendar Week Card contributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juahan/ha-super-calendar-card.git"
+  },
+  "type": "module",
+  "main": "dist/calendar-week-card.js",
+  "module": "dist/calendar-week-card.js",
+  "files": [
+    "dist/calendar-week-card.js",
+    "src"
+  ],
+  "engines": {
+    "node": ">=22.0.0 <23"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "postbuild": "node scripts/postbuild.mjs",
+    "dev": "node scripts/dev.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pretest:e2e": "npm run build",
+    "test:e2e": "playwright test",
+    "screenshots": "node scripts/screenshots.mjs",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "lit": "^3.3.3",
+    "luxon": "^3.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/luxon": "^3.7.6",
+    "@types/node": "^22.15.0",
+    "eslint": "^10.13.0",
+    "happy-dom": "^21.0.3",
+    "rollup": "^4.64.10",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^5.0.5"
+  }
+}
